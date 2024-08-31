@@ -47,10 +47,6 @@
   </p>
   <ol>
     <li>Ensure Python is installed on your system.</li>
-    <li>Install the required dependencies by running:</li>
-  </ol>
-  <pre><code>pip install pynput datetime</code></pre>
-  <ol start="3">
     <li>Download the EXE file from the provided directory.</li>
     <li>Execute the downloaded EXE file to run the keylogger.</li>
   </ol>
